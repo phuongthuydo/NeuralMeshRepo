@@ -1,19 +1,16 @@
-function trap(height) {
-  let left = 0;
-  let right = height.length - 1;
-  let leftMax = 0;
-  let rightMax = 0;
-  let waterTrapped = 0;
-  while (left < right) {
-    if (height[left] < height[right]) {
-      if (height[left] >= leftMax) leftMax = height[left];
-      else waterTrapped += leftMax - height[left];
-      left++;
-    } else {
-      if (height[right] >= rightMax) rightMax = height[right];
-      else waterTrapped += rightMax - height[right];
-      right--;
+function maximalSquare(matrix) {
+  if (matrix.length === 0) return 0;
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  const dp = Array.from(Array(rows + 1), () => Array(cols + 1).fill(0));
+  let maxSquare = 0;
+  for (let i = 1; i <= rows; i++) {
+    for (let j = 1; j <= cols; j++) {
+      if (matrix[i - 1][j - 1] === "1") {
+        dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1;
+        maxSquare = Math.max(maxSquare, dp[i][j]);
+      }
     }
   }
-  return waterTrapped;
+  return maxSquare * maxSquare;
 }
