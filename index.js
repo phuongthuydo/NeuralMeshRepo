@@ -1,3 +1,1 @@
-function isPalindrome(str) {
-  return str === str.split("").reverse().join("");
-}
+const flatten = (arr) => arr.reduce((a, v) => a.concat(v), []);
